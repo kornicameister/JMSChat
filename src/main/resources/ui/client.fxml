@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="640.0"
+            xmlns="http://javafx.com/javafx/8.0.40"
+            fx:controller="org.kornicameister.jsocket.app.client.ctrl.MainViewController">
+    <children>
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+              minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="640.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="400.0" prefWidth="148.0">
+                    <children>
+                        <ListView fx:id="userList" prefHeight="454.0" prefWidth="148.0"/>
+                        <HBox>
+                            <children>
+                                <Button fx:id="logoutBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0"
+                                        text="Logout"/>
+                                <Button fx:id="startChatBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0"
+                                        text="Chat"/>
+                            </children>
+                        </HBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets right="5.0"/>
+                    </HBox.margin>
+                </VBox>
+                <VBox prefHeight="480.0" prefWidth="494.0">
+                    <children>
+                        <TabPane fx:id="roomTabPane" prefHeight="429.0" prefWidth="444.0"
+                                 tabClosingPolicy="UNAVAILABLE">
+                        </TabPane>
+                        <HBox prefHeight="50.0" prefWidth="455.0">
+                            <children>
+                                <TextArea fx:id="messageTextArea" cache="true" cacheHint="SPEED" prefHeight="50.0"
+                                          prefWidth="431.0" promptText="Type message..." wrapText="true"/>
+                                <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="66.0"
+                                        text="Send"/>
+                            </children>
+                        </HBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets left="5.0"/>
+                    </HBox.margin>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>
+        </HBox>
+    </children>
+</AnchorPane>
