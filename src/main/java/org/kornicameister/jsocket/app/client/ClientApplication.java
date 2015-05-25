@@ -23,8 +23,8 @@ public class ClientApplication
   private              JatClientImpl      app        = null;
   private              MainViewController controller = null;
 
-  public void sendMessage(final String roomId, final String text) throws JMSException {
-    this.app.sendMessage(roomId, text);
+  public void sendMessage(final String text) throws JMSException {
+    this.app.sendMessage(text);
   }
 
   @Override

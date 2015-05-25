@@ -1,54 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="640.0"
-            xmlns="http://javafx.com/javafx/8.0.40"
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40"
             fx:controller="org.kornicameister.jsocket.app.client.ctrl.MainViewController">
-    <children>
-        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-              minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="640.0"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="exitItem" mnemonicParsing="false" text="Exit"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <left>
+        <VBox prefHeight="371.0" prefWidth="125.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox prefHeight="400.0" prefWidth="148.0">
-                    <children>
-                        <ListView fx:id="userList" prefHeight="454.0" prefWidth="148.0"/>
-                        <HBox>
-                            <children>
-                                <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0"
-                                        text="Logout"/>
-                            </children>
-                        </HBox>
-                    </children>
-                    <HBox.margin>
-                        <Insets right="5.0"/>
-                    </HBox.margin>
-                </VBox>
-                <VBox prefHeight="480.0" prefWidth="494.0">
-                    <children>
-                        <TabPane fx:id="roomTabPane" prefHeight="429.0" prefWidth="444.0"
-                                 tabClosingPolicy="UNAVAILABLE">
-                        </TabPane>
-                        <HBox prefHeight="50.0" prefWidth="455.0">
-                            <children>
-                                <TextArea fx:id="messageTextArea" cache="true" cacheHint="SPEED" prefHeight="50.0"
-                                          prefWidth="431.0" promptText="Type message..." wrapText="true"/>
-                                <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="66.0"
-                                        text="Send"/>
-                            </children>
-                        </HBox>
-                    </children>
-                    <HBox.margin>
-                        <Insets left="5.0"/>
-                    </HBox.margin>
-                </VBox>
+                <Separator orientation="VERTICAL" prefHeight="50.0" visible="false"/>
+                <ListView fx:id="userList" prefHeight="257.0" prefWidth="105.0"/>
+                <Separator orientation="VERTICAL" prefHeight="50.0" visible="false"/>
+                <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Logout"/>
             </children>
             <padding>
-                <Insets left="5.0" right="5.0"/>
+                <Insets left="10.0" right="10.0"/>
             </padding>
-        </HBox>
-    </children>
-</AnchorPane>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </VBox>
+    </left>
+    <center>
+        <ListView fx:id="chatListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+    </center>
+    <bottom>
+        <VBox prefHeight="83.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <TextArea fx:id="messageTextArea" prefHeight="47.0" prefWidth="575.0"/>
+                        <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0"
+                                text="Send">
+                            <HBox.margin>
+                                <Insets left="5.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="126.0" top="10.0"/>
+                    </VBox.margin>
+                </HBox>
+                <Label prefHeight="33.0" prefWidth="177.0" text="kornicameister@gmail.com" textFill="#9e9e9e">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets left="300.0"/>
+                    </VBox.margin>
+                </Label>
+            </children>
+            <padding>
+                <Insets top="10.0"/>
+            </padding>
+        </VBox>
+    </bottom>
+    <right>
+        <Pane prefHeight="334.0" prefWidth="18.0" BorderPane.alignment="CENTER"/>
+    </right>
+</BorderPane>

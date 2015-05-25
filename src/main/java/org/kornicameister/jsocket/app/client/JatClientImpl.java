@@ -1,9 +1,7 @@
 package org.kornicameister.jsocket.app.client;
 
-import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import org.apache.activemq.ActiveMQSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +23,6 @@ import javax.jms.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 class JatClientImpl
     extends JatApplication
@@ -37,7 +34,7 @@ class JatClientImpl
   private              MessageProducer                   producer    = null;
   private              Queue                             serverQueue = null;
   private              ActiveMQSession                   session     = null;
-  private              Set<ChatModel>                    chats       = Sets.newHashSet();
+  private ChatModel chatModel = null;
   private              Map<CallbackType, List<Callback>> callbackMap = Maps.newHashMapWithExpectedSize(CallbackType.values().length);
 
   @Override
@@ -48,10 +45,6 @@ class JatClientImpl
       this.callbackMap.put(ct, list);
     }
     list.add(callback);
-  }
-
-  @Override
-  protected void doStart() {
   }
 
   @Override
@@ -67,6 +60,10 @@ class JatClientImpl
         this.connection = null;
       }
     }
+  }
+
+  @Override
+  protected void doStart() {
   }
 
   private void disconnect() throws JMSException {
@@ -167,26 +164,19 @@ class JatClientImpl
   private void handleLogin(final LoginResponseMessage object) throws Exception {
     this.createChat(object.getMainRoomName());
     this.callCallbacks(CallbackType.USER_LIST, object.getConnectedUsers());
-    this.callCallbacks(CallbackType.CHAT_LIST, FluentIterable.from(this.chats).transform(ChatModel::getChatName));
+    this.callCallbacks(CallbackType.CHAT_LIST, this.chatModel.getChatName());
   }
 
   private void createChat(final String mainRoomName) throws JMSException {
     final Topic topic = this.session.createTopic(mainRoomName);
-    this.chats.add(
-        new ChatModel()
-            .setChatName(mainRoomName)
-            .setPublisher(this.session.createPublisher(topic))
-            .setSubscriber(this.session.createSubscriber(topic))
-    );
+    this.chatModel = new ChatModel()
+        .setChatName(mainRoomName)
+        .setPublisher(this.session.createPublisher(topic))
+        .setSubscriber(this.session.createSubscriber(topic));
   }
 
-  public void sendMessage(final String roomId, final String text) throws JMSException {
-    final ChatModel chatModel = FluentIterable
-        .from(this.chats)
-        .firstMatch(chat -> chat.getChatName().equalsIgnoreCase(roomId))
-        .get();
-
-    chatModel
+  public void sendMessage(final String text) throws JMSException {
+    this.chatModel
         .publisher
         .publish(
             this.session.createObjectMessage(
@@ -194,7 +184,6 @@ class JatClientImpl
                     .setSent(DateTime.now())
                     .setText(text)
                     .setUser(this.user.getNick())
-                    .setRoom(roomId)
             )
         );
   }
