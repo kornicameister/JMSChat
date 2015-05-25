@@ -96,7 +96,11 @@ public class ClientApplication
     dialog.setTitle("Log in to chat");
     dialog.setHeaderText("In order to log in into application, enter your nick and click Ok");
     dialog.setContentText("Please enter your nick: ");
-    dialog.setOnCloseRequest(e -> this.exit());
+    dialog.setOnCloseRequest(e -> {
+      if (dialog.getResult() == null) {
+        this.exit();
+      }
+    });
 
     dialog.showAndWait().ifPresent(name -> {
       try {
