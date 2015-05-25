@@ -76,10 +76,7 @@ public class ClientApplication
       stage.setResizable(false);
       stage.show();
 
-      stage.setOnCloseRequest(e -> {
-        this.app.stop();
-        Platform.exit();
-      });
+      stage.setOnCloseRequest(e -> this.exit());
 
       final MainViewController controller = loader.getController();
       this.controller = controller.setMainApp(this);
@@ -95,9 +92,12 @@ public class ClientApplication
 
   private void showLoginDialog() {
     final TextInputDialog dialog = new TextInputDialog("...");
+
     dialog.setTitle("Log in to chat");
     dialog.setHeaderText("In order to log in into application, enter your nick and click Ok");
     dialog.setContentText("Please enter your nick: ");
+    dialog.setOnCloseRequest(e -> this.exit());
+
     dialog.showAndWait().ifPresent(name -> {
       try {
         this.app.connect(name);
@@ -108,4 +108,8 @@ public class ClientApplication
     });
   }
 
+  public void exit() {
+    this.app.stop();
+    Platform.exit();
+  }
 }

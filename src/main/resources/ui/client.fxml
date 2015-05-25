@@ -18,10 +18,8 @@
                         <ListView fx:id="userList" prefHeight="454.0" prefWidth="148.0"/>
                         <HBox>
                             <children>
-                                <Button fx:id="logoutBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0"
+                                <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0"
                                         text="Logout"/>
-                                <Button fx:id="startChatBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0"
-                                        text="Chat"/>
                             </children>
                         </HBox>
                     </children>

@@ -32,6 +32,8 @@ public class MainViewController
   private TabPane          roomTabPane;
   @FXML
   private Button           sendButton;
+  @FXML
+  private Button logoutButton;
 
   // main app
   private ClientApplication mainApp;
@@ -119,7 +121,7 @@ public class MainViewController
 
         tabs.add(tab);
       } catch (IOException e) {
-        e.printStackTrace();
+        DialogsFactory.INSTANCE.showErrorDialog(e);
       }
     });
   }
@@ -140,6 +142,7 @@ public class MainViewController
   public void initialize(final URL location, final ResourceBundle resources) {
     this.initTabs();
     this.initSendMessageBtn();
+    this.initLogoutBtn();
   }
 
   private void initTabs() {
@@ -170,6 +173,12 @@ public class MainViewController
         this.sendMessage();
       }
     }));
+  }
+
+  private void initLogoutBtn() {
+    this.logoutButton.setOnAction(e -> {
+      this.mainApp.exit();
+    });
   }
 
   private void sendMessage() {
