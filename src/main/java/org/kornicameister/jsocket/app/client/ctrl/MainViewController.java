@@ -33,7 +33,7 @@ public class MainViewController
   @FXML
   private Button           sendButton;
   @FXML
-  private Button logoutButton;
+  private Button           logoutButton;
 
   // main app
   private ClientApplication mainApp;
@@ -169,21 +169,28 @@ public class MainViewController
   private void initSendMessageBtn() {
     this.sendButton.setOnMouseClicked((event) -> this.sendMessage());
     this.messageTextArea.setOnKeyReleased((event -> {
-      if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-        this.sendMessage();
+      final KeyCode code = event.getCode();
+      if (code.equals(KeyCode.ENTER)) {
+        if (!event.isShiftDown()) {
+          if (this.messageTextArea.getText().trim().isEmpty()) {
+            this.messageTextArea.clear();
+          } else {
+            this.sendMessage();
+          }
+        } else {
+          this.messageTextArea.nextWord();
+        }
       }
     }));
   }
 
   private void initLogoutBtn() {
-    this.logoutButton.setOnAction(e -> {
-      this.mainApp.exit();
-    });
+    this.logoutButton.setOnAction(e -> this.mainApp.exit());
   }
 
   private void sendMessage() {
     final String text = this.messageTextArea.getText();
-    if (text == null || text.isEmpty()) {
+    if ((text == null || text.isEmpty()) || (text.trim().isEmpty())) {
       return;
     }
     try {
